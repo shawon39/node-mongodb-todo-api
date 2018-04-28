@@ -24,7 +24,7 @@ MongoClient.connect('mongodb://localhost:27017', (err, client) => {
     //     console.log('Unable to fetch todos');
     // });
 
-    // Challange
+    // Challenge
 
     db.collection('Users').find({name: 'Shawon'}).count().then((count) => {
         console.log(`Users: ${count}`);
