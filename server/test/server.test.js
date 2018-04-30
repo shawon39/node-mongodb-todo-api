@@ -4,10 +4,21 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
 
+// Modified for GET Method !
+const todos = [{
+    text: 'First Text'
+}, {
+    text: 'Second Text'
+}];
+
+// Modified for GET Method !
 beforeEach((done) => {
-    Todo.remove({}).then(()=> done());
+    Todo.remove({}).then(()=> {
+        Todo.insertMany(todos);
+    }).then(() => done());
 });
 
+// Modified for GET Method !
 describe('POST /todos', () => {
     it('Should create a new todo', (done) => {
         var text = 'Hello !';
@@ -23,7 +34,7 @@ describe('POST /todos', () => {
                 if(err) {
                     return done(err);
                 }
-                Todo.find().then((todos) => {
+                Todo.find({text}).then((todos) => {
                     expect(todos.length).toBe(1);
                     expect(todos[0].text).toBe(text);
                     done();
@@ -41,13 +52,25 @@ describe('POST /todos', () => {
                     return done(err);
                 }
                 Todo.find().then((todos) => {
-                    expect(todos.length).toBe(0);
+                    expect(todos.length).toBe(2);
                     done();
                 }).catch((err) => done(err));
 
             });
         });
 
+});
+
+describe('GET /todos', () => {
+    it('should get all todos', (done) => {
+        request(app)
+        .get('/todos')
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.todos.length).toBe(2);
+        })
+        .end(done);
+    });
 });
 
 
