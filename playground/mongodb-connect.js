@@ -40,7 +40,7 @@ MongoClient.connect('mongodb://localhost:27017', (err, client) => {
     }, (err, result) => {
 
         if(err) {
-            return console.log('Unable to insert Tod', err);
+            return console.log('Unable to insert Todo', err);
         }
         console.log(result.ops[0]._id);
         //console.log(result.ops[0]._id.getTimestamp());
