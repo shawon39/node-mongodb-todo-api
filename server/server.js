@@ -8,6 +8,7 @@ const {ObjectID} = require('mongodb'); // later added
 const {mongoose} = require('./db/mongoose');
 const {Todo} = require('./models/todo');
 const {User} = require('./models/user');
+const {authenticate} = require('./middleware/authenticate');
 
 const app = express();
 //const port = process.env.PORT || 3000;
@@ -122,6 +123,11 @@ app.post('/users', (req, res) => {
     });
 });
 
+
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
@@ -131,69 +137,71 @@ module.exports = {app};
 
 // 1st part
 
-// var mongoose = require('mongoose');
-//
-// mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost:27017/TodoApp2');
+/*
 
-// var Todo = mongoose.model('Todo', {
-//     text: {
-//         type: String,
-//         required: true,
-//         minlength: 1,
-//         trim: true
-//     },
-//     completed: {
-//         type: Boolean,
-//         default: false
-//     },
-//     completedAt: {
-//         type: Number,
-//         default: 5
-//     }
-// });
+var mongoose = require('mongoose');
 
-// var newTodo = new Todo ({
-//     text: 'Cook dinner',
-//     completed: false,
-//     completedAt: 15
-// });
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/TodoApp2');
 
-// var newTodo = new Todo ({
-//     text: 43534
-// });
-//
-//
-// newTodo.save().then((doc) => {
-//     console.log(JSON.stringify(doc, undefined, 4));
-// }, (err) => {
-//     console.log('Unable to save todo', err);
-// });
+var Todo = mongoose.model('Todo', {
+    text: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    },
+    completedAt: {
+        type: Number,
+        default: 5
+    }
+});
+
+var newTodo = new Todo ({
+    text: 'Cook dinner',
+    completed: false,
+    completedAt: 15
+});
+
+var newTodo = new Todo ({
+    text: 43534
+});
 
 
-// Challenge
-
-// var User = mongoose.model('User', {
-//     email: {
-//         type: String,
-//         required: true,
-//         minlength: 1,
-//         trim: true
-//     }
-// });
-//
-// var newUser = new User({
-//     email: 'shshawon39@gmail.com'
-// });
-//
-// newUser.save().then ((doc) => {
-//     console.log(JSON.stringify(doc,undefined,4));
-// }, (err) => {
-//     console.log('Unable to add email', err);
-// });
+newTodo.save().then((doc) => {
+    console.log(JSON.stringify(doc, undefined, 4));
+}, (err) => {
+    console.log('Unable to save todo', err);
+});
 
 
+Challenge
 
+var User = mongoose.model('User', {
+    email: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    }
+});
+
+var newUser = new User({
+    email: 'shshawon39@gmail.com'
+});
+
+newUser.save().then ((doc) => {
+    console.log(JSON.stringify(doc,undefined,4));
+}, (err) => {
+    console.log('Unable to add email', err);
+});
+
+
+*/
 
 
 
