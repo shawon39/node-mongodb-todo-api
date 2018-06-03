@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 
 // *** Security & Authentication
 
+
 var UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -14,6 +15,7 @@ var UserSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         validate: {
+            isAsync:false,
             validator: validator.isEmail,
             message: '{VALUE} is not a valid email.'
         }
@@ -32,7 +34,10 @@ var UserSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+
+}, {
+    usePushEach: true
 });
 
 UserSchema.methods.toJSON  = function () {
@@ -92,13 +97,7 @@ module.exports = {User};
 
 
 
-
-
-
-
-
-
-
+// Mongooes 4.5.9 version
 
 
 //
