@@ -194,6 +194,7 @@ describe('PATCH /todos/:id', () => {
 });
 
 
+
 describe('GET /users/me', () => {
 
     it('Should return user if authenticated', (done) => {
@@ -223,7 +224,7 @@ describe('GET /users/me', () => {
 
 describe('POST /users', () => {
 
-    it('Should Craete a user', (done) => {
+    it('Should Create a user', (done) => {
         var email = 'shawon12@gmail.com';
         var password = '123mbn!';
 
@@ -272,8 +273,6 @@ describe('POST /users', () => {
     });
 
 });
-
-
 
 
 
